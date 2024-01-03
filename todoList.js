@@ -29,11 +29,30 @@ function addTodo() {
     todoHTML += `
       <div class="todo-name-container">
         <input type="checkbox">
-        <div>${todoName}</div>
+        <div class="todo-name">${todoName}</div>
       </div>
-      <div class="due-date-container">${todoDueDate}</div>
+      <div class="due-date">${todoDueDate}</div>
     `;
   });
 
   document.querySelector('.js-todo-container').innerHTML = todoHTML;
+
+  document.querySelectorAll('input[type="checkbox"]')
+    .forEach((checkbox, index) => {
+      let isChecked = true;
+
+      checkbox.addEventListener('click', () => {
+        if (isChecked) {
+          document.querySelectorAll('.todo-name')[index].style.textDecoration = "line-through";
+          document.querySelectorAll('.due-date')[index].style.textDecoration = "line-through";
+
+          isChecked = false;
+        } else {
+          document.querySelectorAll('.todo-name')[index].style.textDecoration = "none";
+          document.querySelectorAll('.due-date')[index].style.textDecoration = "none";
+
+          isChecked = true;
+        }
+      });
+    });
 }
