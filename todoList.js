@@ -27,11 +27,14 @@ function addTodo() {
     const { todoName, todoDueDate } = todo;
 
     todoHTML += `
-      <div class="todo-name-container">
-        <input type="checkbox">
-        <div class="todo-name">${todoName}</div>
-      </div>
+      <div class="todo-name"><input type="checkbox">${todoName}</div>
       <div class="due-date">${todoDueDate}</div>
+      <span title="See more" class="dot">
+        <div class="update">
+          <p>Delete</p>
+          <p>Edit</p>
+        </div>
+      </span>
     `;
   });
 
@@ -52,6 +55,30 @@ function addTodo() {
           document.querySelectorAll('.due-date')[index].style.textDecoration = "none";
 
           isChecked = true;
+        }
+      });
+    });
+
+
+  document.querySelectorAll('.dot')
+    .forEach((spanElem) => {
+      let isActive = true;
+      spanElem.addEventListener('click', () => {
+
+        if(isActive) {
+          spanElem.classList.add('dot-is-active');
+
+          spanElem.removeAttribute('title', 'see more')
+          spanElem.setAttribute('title', 'Hide')
+          
+          isActive = false;
+        } else {
+          spanElem.classList.remove('dot-is-active');
+          
+          spanElem.removeAttribute('title', 'Hide')
+          spanElem.setAttribute('title', 'See more')
+
+          isActive = true;
         }
       });
     });

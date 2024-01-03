@@ -1,37 +1,93 @@
 body {
   height: 100dvh;
-  display: flex;
-  justify-content: center;
+  text-align: center;
   margin-top: 15%;
 }
 
 main {
   display: flex;
   flex-direction: column;
-  /* gap: 20px; */
+  align-items: center;
+  gap: 20px;
 }
 
 .todo-container {
   display: grid;
-  grid-template-columns: 200px 200px;
+  grid-template-columns: 200px 200px 30px;
   align-items: center;
-  /* justify-content: center; */
   gap: 20px;
 }
 
-.todo-name-container {
+.todo-name {
   display: flex;
+  align-items: center;
 }
 
 input {
   width: 200px;
 }
 
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: black;
+  position: relative;
+  cursor: pointer;
+}
+
+.dot::before {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: black;
+  transform: translateY(-6px);
+}
+
+.dot::after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: black;
+  margin-top: 1px;
+}
+
+.update {
+  width: 150px;
+  height: 80px;
+  background-color: #333;
+  color: papayawhip;
+  position: absolute;
+  top: -40px;
+  right: 10px;
+  bottom: -10px;
+  display: none;
+}
+
+.dot-is-active .update {
+  display: block;
+}
+
 @media screen and (max-width: 480px) {
   input[type="date"] {
     display: none;
   }
+
   .due-date-container {
     display: none;
+  }
+
+  .todo-container {
+    grid-template-columns: 200px 30px;
   }
 }
