@@ -1,5 +1,37 @@
 body {
   height: 100dvh;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-top: 15%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */
+}
+
+.todo-container {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 20px;
+}
+
+.todo-name-container {
+  display: flex;
+}
+
+input {
+  width: 200px;
+}
+
+@media screen and (max-width: 480px) {
+  input[type="date"] {
+    display: none;
+  }
+  .due-date-container {
+    display: none;
+  }
 }

@@ -17,5 +17,23 @@ document.querySelector('.js-add-to-do-button')
     todoNameInput.value = '';
     todoDueDateInput.value = '';
 
-    console.log(todoList)
+    addTodo();
   });
+
+function addTodo() {
+  let todoHTML = '';
+
+  todoList.forEach(todo => {
+    const { todoName, todoDueDate } = todo;
+
+    todoHTML += `
+      <div class="todo-name-container">
+        <input type="checkbox">
+        <div>${todoName}</div>
+      </div>
+      <div class="due-date-container">${todoDueDate}</div>
+    `;
+  });
+
+  document.querySelector('.js-todo-container').innerHTML = todoHTML;
+}
