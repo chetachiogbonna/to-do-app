@@ -31,8 +31,8 @@ function addTodo() {
       <div class="due-date">${todoDueDate}</div>
       <span title="See more" class="dot">
         <div class="update">
-          <p>Delete</p>
-          <p>Edit</p>
+          <h4 class="delete-todo">Delete</h4>
+          <h4>Edit</h4>
         </div>
       </span>
     `;
@@ -80,6 +80,14 @@ function addTodo() {
 
           isActive = true;
         }
+      });
+    });
+
+  document.querySelectorAll('.delete-todo')
+    .forEach((deleteTodo, index) => {
+      deleteTodo.addEventListener('click', () => {
+        todoList.splice(index, 1);
+        addTodo();
       });
     });
 }

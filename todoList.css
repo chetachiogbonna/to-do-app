@@ -31,6 +31,7 @@ input[type="checkbox"] {
   width: 20px;
   height: 20px;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .dot {
@@ -60,6 +61,11 @@ input[type="checkbox"] {
   border-radius: 50%;
   background-color: black;
   margin-top: 1px;
+}
+
+h4 {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .update {
