@@ -1,14 +1,13 @@
 const todoList = [];
 
-document.querySelector('.js-add-to-do-button')
-  .addEventListener('click', () => {
+const todoNameInput = document.querySelector('.js-name-input');
+const todoDueDateInput = document.querySelector('.js-due-date-input');
 
-    const todoNameInput = document.querySelector('.js-name-input');
-    const todoName = todoNameInput.value;
+function addTodo() {
+  const todoName = todoNameInput.value;
+  const todoDueDate = todoDueDateInput.value;
 
-    const todoDueDateInput = document.querySelector('.js-due-date-input');
-    const todoDueDate = todoDueDateInput.value;
-
+  if (todoName || (todoName && todoDueDate)) {
     todoList.push({
       todoName,
       todoDueDate
@@ -17,22 +16,27 @@ document.querySelector('.js-add-to-do-button')
     todoNameInput.value = '';
     todoDueDateInput.value = '';
 
-    addTodo();
-  });
+    renderTodoList();
+  }
+}
 
-function addTodo() {
+document.querySelector('.js-add-to-do-button')
+  .addEventListener('click', addTodo)
+  
+
+function renderTodoList() {
   let todoHTML = '';
 
-  todoList.forEach(todo => {
+  todoList.forEach((todo, index) => {
     const { todoName, todoDueDate } = todo;
 
     todoHTML += `
-      <div class="todo-name"><input type="checkbox">${todoName}</div>
+      <div class="todo-name"><input class="checkbox" type="checkbox">${todoName}</div>
       <div class="due-date">${todoDueDate}</div>
       <span title="See more" class="dot">
         <div class="update">
-          <h4 class="delete-todo">Delete</h4>
-          <h4>Edit</h4>
+          <h4 class="delete-todo" title="Delete">Delete</h4>
+          <h4 class="edit-todo" title="Edit">Edit</h4>
         </div>
       </span>
     `;
@@ -40,7 +44,7 @@ function addTodo() {
 
   document.querySelector('.js-todo-container').innerHTML = todoHTML;
 
-  document.querySelectorAll('input[type="checkbox"]')
+  document.querySelectorAll('.checkbox')
     .forEach((checkbox, index) => {
       let isChecked = true;
 
@@ -87,7 +91,36 @@ function addTodo() {
     .forEach((deleteTodo, index) => {
       deleteTodo.addEventListener('click', () => {
         todoList.splice(index, 1);
-        addTodo();
+        renderTodoList();
+      });
+    });
+
+  document.querySelectorAll('.edit-todo')
+    .forEach((editTodo, index) => {
+      editTodo.addEventListener('click', () => {
+
+        todoNameInput.value = todoList[index].todoName;
+        todoDueDateInput.value = todoList[index].todoDueDate;
+
+        function addNewTodo() {
+          const newTodoName = todoNameInput.value;
+          const newTodoDueDate = todoDueDateInput.value;
+
+          todoList[index].todoName = newTodoName;
+          todoList[index].todoDueDate = newTodoDueDate;
+          
+          
+          document.querySelector('.js-add-to-do-button').removeEventListener('click', addNewTodo);
+          document.querySelector('.js-add-to-do-button').addEventListener('click', addTodo);
+          
+          todoNameInput.value = '';
+          todoDueDateInput.value = '';
+          
+          renderTodoList();
+        }
+        
+        document.querySelector('.js-add-to-do-button').removeEventListener('click', addTodo);
+        document.querySelector('.js-add-to-do-button').addEventListener('click', addNewTodo);
       });
     });
 }
